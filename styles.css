@@ -6,3 +6,155 @@ body {
     padding: 0;
     margin: 0;
 }
+
+#container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 580px 1fr;
+    grid-template-rows: auto;
+    background-color: plum;
+}
+
+.top-section {
+    grid-column: 1/5;
+    background-color: red;
+    height: 150px;
+}
+.game-layout {
+    border: 2px solid yellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 10px;
+    padding-bottom: 40px;
+}
+.players-container {
+    height: 500px;
+    border: 2px solid rgb(129, 143, 209);
+    display: flex;
+    
+    align-items: center;
+}
+.players-container-one {
+    justify-content: flex-end;
+}
+.players-container-two {
+    justify-content: flex-start;
+}
+.hole {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(rgb(31, 28, 28) 50%, black);
+    border-radius: 50%; 
+}
+.inside-the-hole {
+    position: absolute;
+    width: 62px;
+    height: 55px;
+    border-radius: 50%;
+    background-color: plum;
+    top: 13px;
+    left: 4px;
+}
+
+.player-one, .player-two {
+    position: relative;
+    width: 150px;
+    height: 200px;
+    border: 2px solid black;
+    border-radius: 20%;
+    box-shadow: 0 10px black;
+    display: flex;
+    flex-wrap: wrap;
+}
+.player-one {
+    margin-right: 2em;
+}
+.player-two {
+    margin-left: 2em;
+}
+
+.player-number {
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.score {
+    width: 100%;
+    text-align: center;
+    font-size: 50px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.smiley {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid black;
+    top: -32px;
+    left: 43px;
+    box-shadow: 0 5px black;
+}
+
+.smiley-one {
+    background-color: indianred;
+}
+.smiley-two {
+    background-color: rgb(206, 236, 98);
+}
+
+.eyes {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: black;
+}
+.left-eye-one {
+    top: 20px;
+    left: 40px;
+}
+.rigth-eye-one {
+    top: 20px;
+    left: 28px;
+}
+
+.smiley-mouth {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border-top: 2px solid transparent;
+    border-bottom: 3px solid black;
+    border-left: 2px solid transparent;
+    border-right: 3px solid black;
+    rotate: 45deg;
+}
+.smiley-mouth-one {
+    top: 20px;
+    left: 22px;
+}
+
+.left-eye-two {
+    top: 20px;
+    right: 40px;
+}
+.right-eye-two {
+    top: 20px;
+    right: 28px;
+}
+
+.smiley-mouth-two {
+    top: 20px;
+    right: 22px;
+}
