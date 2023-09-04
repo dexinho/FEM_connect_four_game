@@ -17,39 +17,48 @@ body {
 
 .top-section {
     grid-column: 1/5;
-    background-color: red;
-    height: 150px;
+    background-color: rgb(231, 144, 144);
+    height: 100px;
 }
+
 .game-layout {
-    border: 2px solid yellow;
+    position: relative;
+    border: 2px solid rgb(0, 0, 0);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
-    padding-top: 10px;
+    padding-top: 30px;
     padding-bottom: 40px;
+    border-radius: 10%;
+    box-shadow: 0 10px black;
+    background-color: white;
 }
+
 .players-container {
     height: 500px;
-    border: 2px solid rgb(129, 143, 209);
     display: flex;
-    
+
     align-items: center;
 }
+
 .players-container-one {
     justify-content: flex-end;
 }
+
 .players-container-two {
     justify-content: flex-start;
 }
+
 .hole {
     position: relative;
     width: 70px;
     height: 70px;
     background: radial-gradient(rgb(31, 28, 28) 50%, black);
-    border-radius: 50%; 
+    border-radius: 50%;
 }
+
 .inside-the-hole {
     position: absolute;
     width: 62px;
@@ -60,7 +69,8 @@ body {
     left: 4px;
 }
 
-.player-one, .player-two {
+.player-one,
+.player-two {
     position: relative;
     width: 150px;
     height: 200px;
@@ -69,10 +79,13 @@ body {
     box-shadow: 0 10px black;
     display: flex;
     flex-wrap: wrap;
+    background-color: white;
 }
+
 .player-one {
     margin-right: 2em;
 }
+
 .player-two {
     margin-left: 2em;
 }
@@ -86,6 +99,7 @@ body {
     justify-content: center;
     align-items: flex-end;
 }
+
 .score {
     width: 100%;
     text-align: center;
@@ -110,6 +124,7 @@ body {
 .smiley-one {
     background-color: indianred;
 }
+
 .smiley-two {
     background-color: rgb(206, 236, 98);
 }
@@ -120,10 +135,12 @@ body {
     height: 5px;
     background-color: black;
 }
+
 .left-eye-one {
     top: 20px;
     left: 40px;
 }
+
 .rigth-eye-one {
     top: 20px;
     left: 28px;
@@ -140,6 +157,7 @@ body {
     border-right: 3px solid black;
     rotate: 45deg;
 }
+
 .smiley-mouth-one {
     top: 20px;
     left: 22px;
@@ -149,6 +167,7 @@ body {
     top: 20px;
     right: 40px;
 }
+
 .right-eye-two {
     top: 20px;
     right: 28px;
@@ -157,4 +176,83 @@ body {
 .smiley-mouth-two {
     top: 20px;
     right: 22px;
+}
+
+.timer-container {
+    position: absolute;
+    height: 150px;
+    width: 150px;
+    z-index: 999;
+    bottom: -95px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.top-part-of-timer {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 50px;
+    border-left: 72px solid transparent;
+    border-right: 72px solid transparent;
+    border-top: 20px solid transparent;
+    border-bottom: 50px solid indianred;
+    translate: 0 7px;
+}
+
+.bottom-part-of-timer {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100px;
+    border: 2px solid black;
+    border-top: 0;
+    box-shadow: 0 10px black;
+    border-radius: 10%;
+    background-color: indianred;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+.player-turn-div {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 5px;
+    color: white;
+}
+.timer-count-div {
+    text-align: center;
+    font-size: 40px;
+    color: white;
+}
+.timer-count {
+    font-size: 50px;
+    color: white;
+}
+
+.timer-lines {
+    position: absolute;
+    height: 2px;
+    width: 87px;
+    background-color: black;
+    top: 24px;
+}
+
+.right-timer-line {
+    rotate: 35deg;
+    left: -2px;
+}
+
+.left-timer-line {
+    rotate: 145deg;
+    right: -2px;
+}
+
+.middle-timer-line {
+    position: absolute;
+    height: 2px;
+    width: 8px;
+    background-color: black;
+    top: -0.8px;
+    left: -1px;
+    border-radius: 50%;
 }
