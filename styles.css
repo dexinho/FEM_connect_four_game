@@ -1,5 +1,10 @@
 * {
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+:root {
+    --background-color: plum;
 }
 
 body {
@@ -12,7 +17,7 @@ body {
     width: 100%;
     grid-template-columns: 1fr 580px 1fr;
     grid-template-rows: auto;
-    background-color: plum;
+    background-color: var(--background-color);
 }
 
 .top-section {
@@ -55,8 +60,12 @@ body {
     position: relative;
     width: 70px;
     height: 70px;
-    background: radial-gradient(rgb(31, 28, 28) 50%, black);
+    background-color: black;
     border-radius: 50%;
+    transition: background-color 0.1s ease-in-out;
+}
+.hole:hover {
+    outline: 2px solid rgb(103, 105, 255);
 }
 
 .inside-the-hole {
@@ -64,9 +73,10 @@ body {
     width: 62px;
     height: 55px;
     border-radius: 50%;
-    background-color: plum;
+    background-color: var(--background-color);
     top: 13px;
     left: 4px;
+    transition: background-color 0.1s ease-in-out;
 }
 
 .player-one,
@@ -126,7 +136,7 @@ body {
 }
 
 .smiley-two {
-    background-color: rgb(206, 236, 98);
+    background-color: yellow;
 }
 
 .eyes {
@@ -255,4 +265,23 @@ body {
     top: -0.8px;
     left: -1px;
     border-radius: 50%;
+}
+
+#ending-dialog {
+    position: fixed;
+    /* background-color: rgb(241, 202, 153); */
+    background-color: rgb(95, 204, 247);
+    border-radius: 20px;
+}
+.slide-to-middle {
+    transition: 1s ease-in-out;
+    margin: 10px;
+}
+.slide-to-top {
+    transition: margin 0.5s ease-in;
+    margin-top: -650px;
+}
+
+#ending-dialog h2 {
+    text-align: center;
 }
