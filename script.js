@@ -8,21 +8,24 @@ const seventhColumn = document.querySelectorAll('.seventh-column')
 const holes = document.querySelectorAll('.hole')
 const timerCountSpan = document.querySelector('.timer-count')
 const playerTurnSpan = document.querySelector('.player-turn')
-const endingDialog = document.querySelector('#ending-dialog')
+const endingDialog = document.querySelector('.ending-dialog')
 const whoWonSpan = document.querySelector('#who-won-span')
+const scorePlayerOne = document.querySelector('.score-player-one')
+const scorePlayerTwo = document.querySelector('.score-player-two')
 let PLAYER_WHO_WON = null
 
 const PLAY_MATRIX = []
 const ALL_COLUMNS_ARR = [firstColumn, secondColumn, thirdColumn, fourthColumn, fifthColumn, sixthColumn, seventhColumn]
 
-let PLAYER_ONE_COLOR = 'indianred'
-let PLAYER_TWO_COLOR = 'yellow'
+let PLAYER_ONE_COLOR = 'var(--player-one-color)'
+let PLAYER_TWO_COLOR = 'var(--player-two-color)'
+let BACKGROUND_COLOR = 'var(--background-color)'
 let CURRENT_COLOR = true
 const TIMEOUT_IDS = []
 
 let MAX_SECONDS_PER_MOVE = 1
 
-function createMatrix() {
+function createRandomMatrix() {
     const randomArr = []
     for (let index = 0; index < 9; index++) {
         randomArr.push(Array.from({ length: 10 }, (el, index) => Math.random() * 10000))
@@ -31,7 +34,7 @@ function createMatrix() {
     return randomArr
 }
 
-PLAY_MATRIX.push(...createMatrix())
+PLAY_MATRIX.push(...createRandomMatrix())
 
 console.log(PLAY_MATRIX)
 
@@ -72,6 +75,27 @@ function clearTimeoutIDs() {
     TIMEOUT_IDS.length = 0
 }
 
+function getCorrectColumn(index) {
+    switch (index) {
+        case 0: return firstColumn
+        case 1: return secondColumn
+        case 2: return thirdColumn
+        case 3: return fourthColumn
+        case 4: return fifthColumn
+        case 5: return sixthColumn
+        case 6: return seventhColumn
+    }
+}
+
+async function highlightWinningCombo(rowIndexes, columnIndexes) {
+    for (let i = 3; i >= 0; i--) {
+        let correctColumn = getCorrectColumn(columnIndexes[i])
+        correctColumn[rowIndexes[i]].style.transition = 'outline 0.2s ease-in'
+        correctColumn[rowIndexes[i]].style.outline = '3px solid blue'
+        await delay(250)
+    }
+}
+
 function checkIfThereIsAWinner() {
 
     for (let i = 0; i < PLAY_MATRIX.length - 3; i++) {
@@ -80,31 +104,39 @@ function checkIfThereIsAWinner() {
                 && PLAY_MATRIX[i][j] === PLAY_MATRIX[i + 2][j]
                 && PLAY_MATRIX[i][j] === PLAY_MATRIX[i + 3][j]) {
                 PLAYER_WHO_WON = PLAY_MATRIX[i][j]
+                highlightWinningCombo([i, i + 1, i + 2, i + 3],
+                    [j, j, j, j])
                 return true
             }
             else if (PLAY_MATRIX[i][j] === PLAY_MATRIX[i][j + 1]
                 && PLAY_MATRIX[i][j] === PLAY_MATRIX[i][j + 2]
                 && PLAY_MATRIX[i][j] === PLAY_MATRIX[i][j + 3]) {
                 PLAYER_WHO_WON = PLAY_MATRIX[i][j]
+                highlightWinningCombo([i, i, i, i],
+                    [j, j + 1, j + 2, j + 3])
                 return true
             }
             else if (PLAY_MATRIX[i][j] === PLAY_MATRIX[i + 1][j - 1]
                 && PLAY_MATRIX[i][j] === PLAY_MATRIX[i + 2][j - 2]
                 && PLAY_MATRIX[i][j] === PLAY_MATRIX[i + 3][j - 3]) {
                 PLAYER_WHO_WON = PLAY_MATRIX[i][j]
+                highlightWinningCombo([i, i + 1, i + 2, i + 3],
+                    [j, j - 1, j - 2, j - 3])
                 return true
             }
             else if (PLAY_MATRIX[i][j] === PLAY_MATRIX[i + 1][j + 1]
                 && PLAY_MATRIX[i][j] === PLAY_MATRIX[i + 2][j + 2]
                 && PLAY_MATRIX[i][j] === PLAY_MATRIX[i + 3][j + 3]) {
                 PLAYER_WHO_WON = PLAY_MATRIX[i][j]
+                highlightWinningCombo([i, i + 1, i + 2, i + 3],
+                    [j, j + 1, j + 2, j + 3])
                 return true
             }
         }
     }
 }
 
-function addCircle(column, matrixIndex) {
+async function addCircle(column, matrixIndex) {
     clearTimeoutIDs()
 
     for (let i = column.length - 1; i >= 0; i--) {
@@ -120,10 +152,10 @@ function addCircle(column, matrixIndex) {
                 ALL_COLUMNS_ARR.splice(ALL_COLUMNS_ARR.indexOf(column), 1)
             }
 
-            
+
             PLAY_MATRIX[i][matrixIndex] = CURRENT_COLOR ? true : false
             console.log(PLAY_MATRIX)
-            
+
 
             CURRENT_COLOR = !CURRENT_COLOR
             break;
@@ -131,11 +163,20 @@ function addCircle(column, matrixIndex) {
     }
 
     if (checkIfThereIsAWinner()) {
+
+        addOrRemovePointerEvents(holes, true)
         whoWonSpan.innerText = PLAYER_WHO_WON ? "RED" : "YELLOW"
         whoWonSpan.style.color = PLAYER_WHO_WON ? PLAYER_ONE_COLOR : PLAYER_TWO_COLOR
         whoWonSpan.style.fontSize = '20px'
-        endingDialog.classList.add('slide-to-middle')
+
+        if (PLAYER_WHO_WON) scorePlayerOne.textContent++
+        else scorePlayerTwo.textContent++
+
+        await delay(1500)
+
+        endingDialog.classList.remove('animate-margin-up')
         endingDialog.showModal()
+        endingDialog.classList.add('animate-margin-down')
     } else startTimer()
 }
 
@@ -172,7 +213,7 @@ holes.forEach(hole => {
             column = sixthColumn
             index = 5
         }
-        else if (holeClicked.contains('seventh-column')) {
+        else if (holeClicked.classList.contains('seventh-column')) {
             column = seventhColumn
             index = 6
         }
@@ -181,3 +222,27 @@ holes.forEach(hole => {
     })
 })
 
+function addOrRemovePointerEvents(elements, choice) {
+    elements.forEach(el => {
+        el.style.pointerEvents = choice ? 'none' : 'auto'
+    })
+}
+
+async function resetPlayingField() {
+    addOrRemovePointerEvents(holes, false)
+    endingDialog.classList.remove('animate-margin-down')
+    endingDialog.classList.add('animate-margin-up')
+    await delay(500)
+    endingDialog.close()
+    holes.forEach(hole => {
+        hole.firstElementChild.style.backgroundColor = BACKGROUND_COLOR
+        hole.style.backgroundColor = 'black'
+        hole.style.outline = '0'
+        hole.style.borderTop = '0'
+    })
+    PLAY_MATRIX.length = 0
+    PLAY_MATRIX.push(...createRandomMatrix())
+}
+
+playAgainButton = document.querySelector('#play-again-button')
+playAgainButton.addEventListener('click', resetPlayingField)
