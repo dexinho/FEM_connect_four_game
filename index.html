@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <script src="script.js" defer></script>
     <title>Connect Four</title>
 </head>
@@ -17,7 +21,7 @@
                     <div class="eyes rigth-eye-one"></div>
                     <div class="smiley-mouth smiley-mouth-one"></div>
                 </div>
-                <p class="player-number">Player 1</p>
+                <p class="player-number"><input class='name-input' type="text" placeholder="Player 1" maxlength="8"></p>
                 <p class="score score-player-one">0</p>
             </div>
         </div> 
@@ -167,13 +171,14 @@
                     <div class="eyes right-eye-two"></div>
                     <div class="smiley-mouth smiley-mouth-two"></div>
                 </div>
-                <p class="player-number">Player 2</p>
+                <p class="player-number"><input class='name-input' type="text" placeholder="Player 2" maxlength="8"></p>
                 <p class="score score-player-two">0</p>
             </div>
         </div>
-        <dialog id="ending-dialog">
+        <dialog class="ending-dialog">
             <h1>CONGRATULATIONS!</h1>
-            <h2>Player <span id="who-won-span"></span> WON!</h2>
+            <h2>PLAYER <span id="who-won-span"></span> WINS!</h2>
+            <div class="play-again-button-div"><button id="play-again-button">PLAY AGAIN</button></div>
         </dialog>
     </div>
 </body>
