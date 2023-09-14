@@ -14,31 +14,18 @@ const scorePlayerOne = document.querySelector('.score-player-one')
 const scorePlayerTwo = document.querySelector('.score-player-two')
 let PLAYER_WHO_WON = null
 
-const PLAY_MATRIX = []
-const ALL_COLUMNS_ARR = [firstColumn, secondColumn, thirdColumn, fourthColumn, fifthColumn, sixthColumn, seventhColumn]
-
 let PLAYER_ONE_COLOR = 'var(--player-one-color)'
 let PLAYER_TWO_COLOR = 'var(--player-two-color)'
 let BACKGROUND_COLOR = 'var(--background-color)'
 let CURRENT_COLOR = true
 const TIMEOUT_IDS = []
 
-let MAX_SECONDS_PER_MOVE = 1
+const PLAY_MATRIX = []
+const ALL_COLUMNS_ARR = [firstColumn, secondColumn, thirdColumn, fourthColumn, fifthColumn, sixthColumn, seventhColumn]
 
-function createRandomMatrix() {
-    const randomArr = []
-    for (let index = 0; index < 9; index++) {
-        randomArr.push(Array.from({ length: 10 }, (el, index) => Math.random() * 10000))
-    }
+let MAX_SECONDS_PER_MOVE = 30
 
-    return randomArr
-}
-
-PLAY_MATRIX.push(...createRandomMatrix())
-
-console.log(PLAY_MATRIX)
-
-const ALL_COLUMNS_OBJ = {
+const COLUMN_IDS_OBJ = {
     'first-column': '0',
     'second-column': '1',
     'third-column': '2',
@@ -48,6 +35,16 @@ const ALL_COLUMNS_OBJ = {
     'seventh-column': '6',
 }
 
+PLAY_MATRIX.push(...createRandomMatrix())
+
+function createRandomMatrix() {
+    const randomArr = []
+    for (let index = 0; index < 9; index++) {
+        randomArr.push(Array.from({ length: 10 }, (el, index) => Math.random() * 10000))
+    }
+
+    return randomArr
+}
 
 function delay(ms) {
     return new Promise(res => {
@@ -64,7 +61,7 @@ function startTimer() {
         }
         else if (ALL_COLUMNS_ARR.length > 0) {
             let randomIndex = Math.floor(Math.random() * ALL_COLUMNS_ARR.length)
-            addCircle(ALL_COLUMNS_ARR.at(randomIndex), ALL_COLUMNS_OBJ[ALL_COLUMNS_ARR.at(randomIndex)[0].classList[1]])
+            addCircle(ALL_COLUMNS_ARR.at(randomIndex), COLUMN_IDS_OBJ[ALL_COLUMNS_ARR.at(randomIndex)[0].classList[1]])
         }
     }
     updateTimer()
